@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Neon Countdown Pro</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: radial-gradient(circle at top, #0f172a, #000);
+  font-family: Arial, sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+/* animated background glow */
+body::before{
+  content:"";
+  position:absolute;
+  width:600px;
+  height:600px;
+  background: #22d3ee;
+  filter: blur(150px);
+  opacity:0.2;
+  animation: float 6s infinite alternate;
+}
+
+@keyframes float{
+  from{ transform:translate(-100px,-100px);}
+  to{ transform:translate(100px,100px);}
+}
+
+.card{
+  position:relative;
+  text-align:center;
+  padding:50px;
+  border-radius:25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  box-shadow:0 0 40px rgba(34,211,238,0.3);
+  animation: glow 3s infinite alternate;
+}
+
+@keyframes glow{
+  from{box-shadow:0 0 20px rgba(34,211,238,0.2);}
+  to{box-shadow:0 0 60px rgba(34,211,238,0.6);}
+}
+
+h1{
+  font-size:28px;
+  margin-bottom:20px;
+  color:#38bdf8;
+  text-shadow:0 0 10px #38bdf8;
+}
+
+#countdown{
+  font-size:55px;
+  font-weight:bold;
+  color:#22d3ee;
+  text-shadow:0 0 15px #22d3ee,0 0 30px #22d3ee;
+  letter-spacing:2px;
+  animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.1);}
+  100%{transform:scale(1);}
+}
+
+.sub{
+  margin-top:15px;
+  font-size:14px;
+  color:#94a3b8;
+}
+
+.badge{
+  display:inline-block;
+  margin-top:15px;
+  padding:5px 12px;
+  font-size:12px;
+  border:1px solid #22d3ee;
+  border-radius:20px;
+  color:#22d3ee;
+  box-shadow:0 0 10px rgba(34,211,238,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>⏳ boss cuming Countdown</h1>
+  <div id="countdown">Loading...</div>
+  <div class="sub">17 April • 7:30 PM</div>
+  <div class="badge">Washall at Allama Iqbal Airport </div>
+</div>
+
+<script>
+const targetDate = new Date("April 17, 2026 19:30:00").getTime();
+
+function update(){
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+
+  if(diff <= 0){
+    document.getElementById("countdown").innerHTML = "🚀 LAUNCHED!";
+    return;
+  }
+
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+  const m = Math.floor((diff/(1000*60))%60);
+  const s = Math.floor((diff/1000)%60);
+
+  document.getElementById("countdown").innerHTML =
+    `${d}d : ${h}h : ${m}m : ${s}s`;
+}
+
+setInterval(update,1000);
+</script>
+
+</body>
+</html>
